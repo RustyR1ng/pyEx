@@ -59,7 +59,7 @@ trunk_config_2 = {
 def generate_trunk_config(intf_vlan_mapping, trunk_template):
     result = list()
     for intf in intf_vlan_mapping:
-        result.append(intf)
+        result.append(f"interface {intf}")
         for line in trunk_template:
             if line.find("allowed vlan") != -1:
                 str_intf = [str(num) for num in intf_vlan_mapping[intf]]

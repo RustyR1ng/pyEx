@@ -35,3 +35,28 @@ def ignore_command(command, ignore):
     * False - если нет
     """
     return any(word in command for word in ignore)
+
+
+def convert_config_to_dict(config_filename):
+    res = {}
+    with open(config_filename, 'r') as file:
+        top_command = ''
+        lower_commands = []
+        temp = {}
+        for line in file:
+            if line != '\n' and line.find('!') == -1 and not ignore_command(line, ignore):
+                if line[0] != ' ':
+                    if top_command:
+                        """ temp.clear()
+                        temp.update({top_command: lower_commands}) """
+                        res.update({top_command: list(lower_commands)})
+                        """ print(temp) """
+                    top_command = line.rstrip()
+                    lower_commands.clear()
+                else:
+                    lower_commands.append(line.strip())
+        else:
+            """ temp.clear()
+            temp.update({top_command: lower_commands}) """
+            res.update({top_command: list(lower_commands)})
+    return res

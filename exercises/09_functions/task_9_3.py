@@ -46,5 +46,4 @@ def get_int_vlan_map(config_filename):
     return result_access, result_trunk
 
 
-print(get_int_vlan_map(
-    "C:/Users/R1/Desktop/09_functions/config_sw1.txt"))
+print(get_int_vlan_map("config_sw1.txt"))
