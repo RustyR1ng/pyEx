@@ -44,8 +44,21 @@ Cгенерировать топологию, которая соответст�
 
 # эти заготовки написаны чтобы показать в какой момент должна
 # рисоваться топология (после вызова функции)
+
+import draw_network_graph as dng
+from task_11_1 import parse_cdp_neighbors
+
+
 def create_network_map(filenames):
-    pass
+    topol = dict()
+    for file in filenames:
+        with open(file) as f:
+            topol.update(parse_cdp_neighbors(f.read()))
+    for item in dict(topol):
+        if item[0] in [val[0] for val in topol.values()] and topol[item][0] in [key[0] for key in topol.keys()]:
+            topol.pop(item)
+    print(topol)
+    return topol
 
 
 if __name__ == "__main__":
@@ -57,5 +70,6 @@ if __name__ == "__main__":
     ]
 
     topology = create_network_map(infiles)
+    dng.draw_topology(topology)
     # рисуем топологию:
     # draw_topology(topology)
