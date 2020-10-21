@@ -14,3 +14,20 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+import subprocess
+
+
+def ping_ip_addresses(ip_addresses):
+    availble_ips = list()
+    unavailble_ips = list()
+    for ip in ip_addresses:
+        reply = subprocess.run(['ping', ip])
+        if reply.returncode == 0:
+            availble_ips.append(ip)
+        else:
+            unavailble_ips.append(ip)
+    return availble_ips, unavailble_ips
+
+
+list_of_ips = ["1.1.1", "8.8.8.8", "8.8.4.4", "8.8.7.1"]
+print(ping_ip_addresses(list_of_ips))

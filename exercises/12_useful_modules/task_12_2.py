@@ -30,3 +30,19 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+
+
+def convert_ranges_to_ip_list(ip_list):
+    new_ip_list = list()
+    for ip in ip_list:
+        if ip.find('-') != -1:
+            ip_range = ip[ip.find(
+                '-')+1:] if ip[ip.find(
+                    '-')+1:].isdigit() else ip[ip.rfind('.')+1:]
+            ip_split = [int(num) for num in ip[:ip.find('-')].split('.')]
+            for num in range(ip_split[3], int(ip_range)+1):
+                new_ip_list.append('.'.join([str(item)
+                                             for item in [*ip_split[:3], num]]))
+        else:
+            new_ip_list.append(ip)
+    return new_ip_list
